@@ -1,6 +1,6 @@
 import re
 
-from haproxy.config import HEALTH_CHECK, EXTRA_ROUTE_SETTINGS
+from haproxy.config import HEALTH_CHECK, EXTRA_ROUTE_SETTINGS, EXTRA_TCP_SETTINGS
 from haproxy.utils import get_service_attribute
 
 
@@ -59,13 +59,13 @@ def get_healthcheck_string(details, service_alias):
 
 def get_extra_tcp_settings_string(details, service_alias):
     extra_tcp_settings = get_service_attribute(details, "extra_tcp_settings", service_alias)
-    extra_tcp_settings = extra_tcp_settings if extra_tcp_settings else EXTRA_ROUTE_SETTINGS
+    extra_tcp_settings = extra_tcp_settings if extra_tcp_settings else EXTRA_TCP_SETTINGS
     return extra_tcp_settings
 
 
 def get_extra_route_settings_string(details, service_alias):
     extra_route_settings = get_service_attribute(details, "extra_route_settings", service_alias)
-    extra_route_settings = extra_route_settings if extra_route_settings else ""
+    extra_route_settings = extra_route_settings if extra_route_settings else EXTRA_ROUTE_SETTINGS
     return extra_route_settings
 
 

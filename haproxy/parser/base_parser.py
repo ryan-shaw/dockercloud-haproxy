@@ -186,6 +186,10 @@ class EnvParser(object):
         return value
 
     @staticmethod
+    def parse_extra_tcp_settings(value):
+        return value
+
+    @staticmethod
     def parse_failover(value):
         return value
 
