@@ -41,8 +41,9 @@ def get_tcp_routes(details, routes, port, port_num):
                         addresses_added.append(address)
                         tcp_route = ["server %s %s" % (route["container_name"], address)]
                         health_check = get_healthcheck_string(details, _service_alias)
-                        extra_route_settings = get_extra_route_settings_string(details, _service_alias)
-                        route_setting = " ".join([health_check, extra_route_settings]).strip()
+                        # extra_route_settings = get_extra_route_settings_string(details, _service_alias)
+                        extra_tcp_settings = get_extra_tcp_settings_string(details, _service_alias)
+                        route_setting = " ".join([health_check, extra_tcp_settings]).strip()
                         tcp_route.append(route_setting)
                         tcp_routes.append(" ".join(tcp_route))
                     routes_added.append(route)
@@ -56,9 +57,15 @@ def get_healthcheck_string(details, service_alias):
     return health_check
 
 
+def get_extra_tcp_settings_string(details, service_alias):
+    extra_tcp_settings = get_service_attribute(details, "extra_tcp_settings", service_alias)
+    extra_tcp_settings = extra_tcp_settings if extra_tcp_settings else EXTRA_ROUTE_SETTINGS
+    return extra_tcp_settings
+
+
 def get_extra_route_settings_string(details, service_alias):
     extra_route_settings = get_service_attribute(details, "extra_route_settings", service_alias)
-    extra_route_settings = extra_route_settings if extra_route_settings else EXTRA_ROUTE_SETTINGS
+    extra_route_settings = extra_route_settings if extra_route_settings else ""
     return extra_route_settings
 
 
